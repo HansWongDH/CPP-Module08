@@ -1,28 +1,31 @@
 #include "Span.hpp"
 #include <iostream>
+#include <algorithm>
 #include <iterator>
 using std::cout;
 using std::endl;
-using std::iterator;
+using std::sort;
 
 Span::Span()
 {
 	cout << "Span constructor called" << endl;
-	this->arr = new int[0];
+	this->vec = vector<int>(0, 0);
 	this->size = 0;
+	this->_index = 0;
+	this->vec[this->_index] = 0;
 }
 
 Span::Span(unsigned int n)
 {
 	cout << "Span constructor called" << endl;
-	this->arr = new int[n];
+	this->vec = vector<int>(n, 0);
 	this->size = n;
+	this->_index = 0;
 }
 
 Span::~Span()
 {
 	cout << "Span destructor called" << endl;
-	delete this->arr;
 }
 
 unsigned int	Span::getSize(void) const
@@ -31,28 +34,52 @@ unsigned int	Span::getSize(void) const
 }
 int		Span::getNum(int i) const
 {
-	return(this->arr[i]);
+	return(this->vec[i]);
 }
 
 Span::Span(Span const &a)
 {
 	this->size = a.getSize();
-	this->arr = new int[this->size];
+	this->vec = a.vec;
 	for (int i = 0; i < this->size; i++)
-		this->arr[i] = a.getNum(i);
+		this->vec[i] = a.getNum(i);
 }
 
 Span	&Span::operator=(Span &a)
 {
 	this->size = a.getSize();
-	this->arr = new int[this->size];
+	this->vec = a.vec;
 	for (int i = 0; i < this->size; i++)
-		this->arr[i] = a.getNum(i);
+		this->vec[i] = a.getNum(i);
 	return (*this);
 }
 
+const char*	Span::outOfBound::what() const throw()
+{
+	return("Span::Out of bound");
+}
 void	Span::addNumber(int	i)
 {
-	*this->arr = i;
-	this->arr++;
+	if (this->_index >= this->size)
+		throw outOfBound();
+	this->vec[this->_index] = i;
+	this->_index++;
+}
+
+int	find_span(int i, int j)
+{
+	return std::abs(i - j);
+}
+int	Span::shortestSpan(void)
+{
+	Span sp = *this;
+	std::vector<int> spans(sp.getSize() - 1);
+	sort(sp.vec.begin(), std::end(sp.vec));
+	std::transform(sp.vec.begin(), sp.vec.end() - 1, sp.vec.begin() + 1, spans.begin(),find_span); // iterator through the vector, apply find_span and store the value into the vector spans
+	return *std::min_element(spans.begin(), spans.end());
+}
+
+int	Span::longestSpan(void)
+{
+	return (*std::max_element(this->vec.begin(), this->vec.end()) - *std::min_element(this->vec.begin(), this->vec.end()));
 }

@@ -1,4 +1,4 @@
-NAME		= Easyfind
+NAME		= Span
 
 SRC_DIR		= ./
 OBJ_DIR		= obj

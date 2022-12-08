@@ -5,13 +5,18 @@ using std::endl;
 using std::cout;
 int	main(void)
 {
-	Span	sp = Span(5);
-	sp.addNumber(1);
-	sp.addNumber(2);
+	Span	sp(5);
+	sp.addNumber(5);
+	sp.addNumber(4);
 	sp.addNumber(3);
+	sp.addNumber(2);
+	sp.addNumber(15);
 
-	for (int i = 0; i < 3; i++)
-	{
-		sp.getNum(i);
-	}
+	// cout << "longest span" << sp.longestSpan() << endl;
+	cout << "shortest span" << sp.shortestSpan() << endl;
+	// for (int i = 0; i < sp.getSize(); i++)
+	// {
+	// 	cout << sp.getNum(i) << endl;
+	// }
+
 }
