@@ -8,11 +8,10 @@ using std::sort;
 
 Span::Span()
 {
-	cout << "Span constructor called" << endl;
-	this->vec = vector<int>(0, 0);
+	cout << "Span defaultconstructor called" << endl;
+	this->vec = vector<int>();
 	this->size = 0;
 	this->_index = 0;
-	this->vec[this->_index] = 0;
 }
 
 Span::Span(unsigned int n)
@@ -46,12 +45,12 @@ Span::Span(Span const &a)
 		cout << "Span copy constructor called" << endl;
 }
 
-Span	&Span::operator=(Span const &a)
+Span&	Span::operator=(Span const &a)
 {
 	cout << "Span assignment called" << endl;
 	this->size = a.getSize();
 	this->vec = a.vec;
-	for (int i = 0; i < this->size; i++)
+	for (int i = 0; i < a.getSize(); i++)
 		this->vec[i] = a.getNum(i);
 	return (*this);
 }
@@ -74,6 +73,8 @@ int	find_span(int i, int j)
 }
 int	Span::shortestSpan(void)
 {
+	if (this->getSize() <= 0)
+		return (0);
 	Span sp(*this);
 	std::vector<int> spans(sp.getSize() - 1);
 	sort(sp.vec.begin(), std::end(sp.vec));
@@ -83,5 +84,7 @@ int	Span::shortestSpan(void)
 
 int	Span::longestSpan(void)
 {
+	if (this->getSize() <= 0)
+		return (0);
 	return (*std::max_element(this->vec.begin(), this->vec.end()) - *std::min_element(this->vec.begin(), this->vec.end()));
 }
