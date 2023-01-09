@@ -12,11 +12,11 @@ int	main(void)
 	sp.addNumber(2);
 	sp.addNumber(15);
 
-	// cout << "longest span" << sp.longestSpan() << endl;
-	cout << "shortest span" << sp.shortestSpan() << endl;
-	// for (int i = 0; i < sp.getSize(); i++)
-	// {
-	// 	cout << sp.getNum(i) << endl;
-	// }
+	cout << "longest span \n" << sp.longestSpan() << endl;
+	cout << "shortest span \n" << sp.shortestSpan() << endl;
+	for (int i = 0; i < sp.getSize(); i++)
+	{
+		cout << sp.getNum(i) << endl;
+	}
 
 }

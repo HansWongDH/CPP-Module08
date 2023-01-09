@@ -13,7 +13,7 @@ class Span
 		Span();
 		Span(unsigned int n);
 		Span(Span const &a);
-		Span &operator=(Span &a);
+		Span &operator=(Span const &a);
 		~Span();
 		void	addNumber(int i);
 		unsigned int	getSize(void) const;

@@ -43,10 +43,12 @@ Span::Span(Span const &a)
 	this->vec = a.vec;
 	for (int i = 0; i < this->size; i++)
 		this->vec[i] = a.getNum(i);
+		cout << "Span copy constructor called" << endl;
 }
 
-Span	&Span::operator=(Span &a)
+Span	&Span::operator=(Span const &a)
 {
+	cout << "Span assignment called" << endl;
 	this->size = a.getSize();
 	this->vec = a.vec;
 	for (int i = 0; i < this->size; i++)
@@ -72,7 +74,7 @@ int	find_span(int i, int j)
 }
 int	Span::shortestSpan(void)
 {
-	Span sp = *this;
+	Span sp(*this);
 	std::vector<int> spans(sp.getSize() - 1);
 	sort(sp.vec.begin(), std::end(sp.vec));
 	std::transform(sp.vec.begin(), sp.vec.end() - 1, sp.vec.begin() + 1, spans.begin(),find_span); // iterator through the vector, apply find_span and store the value into the vector spans
